@@ -1,0 +1,18 @@
+{
+  "contract": "helm.tool/1",
+  "id": "project-list",
+  "name": "Project list",
+  "version": "0.1.0",
+  "description": "Every linked project with its availability; open one in a project tab. From the tdt-helm stack.",
+  "icon": "folder",
+  "multi": false,
+  "settings": [
+    { "id": "showArchived", "type": "checkbox", "label": "Show archived projects", "default": false }
+  ],
+  "connections": [
+    { "id": "tdt", "kind": "tdt-mcp", "operations": ["tdt_project_list"] }
+  ],
+  "capabilities": [],
+  "permissions": { "write": false },
+  "entry": "index.html"
+}

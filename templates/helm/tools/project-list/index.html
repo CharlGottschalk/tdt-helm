@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  /* Theme tokens are injected by Helm. Helm draws the tool header; this is the body. */
+  .state { color: var(--c-text-2); }
+  table { width: 100%; border-collapse: collapse; background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--radius); }
+  th, td { text-align: left; padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--c-line); }
+  th { font-weight: normal; }
+  td.path { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--c-text-2); overflow-wrap: anywhere; }
+  .available { color: var(--c-green); }
+  .missing { color: var(--c-amber); }
+  .archived { color: var(--c-text-2); }
+  button { font: inherit; color: var(--c-text-0); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-color: var(--c-line-strong); }
+  button:hover, button:focus-visible { color: var(--c-cyan); }
+</style>
+</head>
+<body>
+  <div id="app" class="state">Loading…</div>
+  <script>
+    // A stack-shipped example tool: lists projects and asks Helm to open one.
+    const app = document.getElementById('app')
+    let settings = {}
+
+    const cell = (text, className) => {
+      const td = document.createElement('td')
+      td.textContent = text
+      if (className) td.className = className
+      return td
+    }
+
+    async function load() {
+      const items = []
+      let cursor = null
+      do {
+        const result = await helm.call('tdt', 'tdt_project_list', cursor ? { limit: 50, cursor } : { limit: 50 })
+        if (!result.ok) {
+          app.className = 'state'
+          app.textContent = result.error.message
+          return
+        }
+        items.push(...result.data.items)
+        cursor = result.data.next_cursor
+      } while (cursor)
+
+      const shown = items.filter((p) => settings.showArchived || p.status !== 'archived')
+      if (!shown.length) {
+        app.className = 'state'
+        app.textContent = 'No linked projects yet. Add one with /tdt-add-project.'
+        return
+      }
+      const head = document.createElement('tr')
+      for (const h of ['Project', 'Availability', 'Path']) {
+        const th = document.createElement('th')
+        th.className = 'hud-label'
+        th.textContent = h
+        head.append(th)
+      }
+      const rows = shown.map((p) => {
+        const tr = document.createElement('tr')
+        const name = document.createElement('td')
+        const open = document.createElement('button')
+        open.textContent = p.path.split(/[\\/]/).filter(Boolean).pop() || p.id
+        open.onclick = () => helm.openTab({ kind: 'project', id: p.id })
+        name.append(open)
+        tr.append(name, cell(p.availability, p.availability.split(' ')[0]), cell(p.path, 'path'))
+        return tr
+      })
+      const table = document.createElement('table')
+      table.append(head, ...rows)
+      app.className = ''
+      app.replaceChildren(table)
+    }
+
+    helm.on('settings', (s) => { settings = s; load() })
+    helm.ready()
+  </script>
+</body>
+</html>

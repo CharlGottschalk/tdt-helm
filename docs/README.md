@@ -34,11 +34,11 @@ Machine-checkable schemas live in [`schemas/`](schemas/); worked examples in
 | Origin | Location | Loaded as |
 | --- | --- | --- |
 | Built in | `packages/widgets/src/dashboard/registry.tsx`, `packages/widgets/src/tools/registry.tsx` | React components |
-| Stack | `.tdt/stacks/<stack-id>/helm/{widgets,tools}/<id>/` | Manifest + sandboxed bundle |
+| Stack | `.tdt/stacks/<stack-id>/templates/helm/{widgets,tools}/<id>/` (TDT installs only files listed under `templates/` and the other declared folders) | Manifest + sandboxed bundle |
 | Generated (user-owned) | `work/helm/{widgets,tools}/<id>/` in the workspace | Manifest + sandboxed bundle |
 
-A sandboxed bundle is `manifest.json` + `index.html` (self-contained HTML/CSS/JS). It
-renders in an opaque-origin iframe (`sandbox="allow-scripts"`) and talks to Helm only
+A sandboxed bundle is `manifest.json` + `index.html` (self-contained HTML/CSS/JS); the
+folder name must equal the manifest `id`. It renders in an opaque-origin iframe (`sandbox="allow-scripts"`) and talks to Helm only
 through the bridge in [widget.md](widget.md#bridge).
 
 > Installed copy from the tdt-helm stack. Schemas and examples ship with Helm in `contracts/`.

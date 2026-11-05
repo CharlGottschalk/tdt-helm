@@ -15,7 +15,11 @@
     "templates/widget/manifest.json",
     "templates/widget/index.html",
     "templates/tool/manifest.json",
-    "templates/tool/index.html"
+    "templates/tool/index.html",
+    "templates/helm/widgets/workspace-glance/manifest.json",
+    "templates/helm/widgets/workspace-glance/index.html",
+    "templates/helm/tools/project-list/manifest.json",
+    "templates/helm/tools/project-list/index.html"
   ],
   "docs": [
     "docs/README.md",
