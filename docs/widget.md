@@ -33,7 +33,7 @@ instances when `multi` is true (each with its own settings).
 | `version` | Semver |
 | `description` | ≤ 240, shown in the widget library |
 | `category` | `Overview` \| `Work` \| `Knowledge` \| `Agents` \| `Utility` |
-| `icon` | A Helm icon name (`src/components/hud/Icon.tsx`) |
+| `icon` | A Helm icon name (`ICON_NAMES` in `packages/contracts/src/icons.ts`) |
 | `size` | Grid units. `w` 1–6 columns, `h` ≥ 1 rows (row = 76px + 14px gap). Defaults ≤ 6×8 |
 | `multi` | Optional, default `false` |
 | `settings` | Optional. See [settings.md](settings.md) |
@@ -81,7 +81,7 @@ helm.resize({ h: 5 })                         // request, Helm may refuse
   network, frames, forms, popups and navigation. No `localStorage`; persist via settings.
 
 Built-in widgets are React components that receive the same capabilities through
-`WidgetContext` (`src/sdk/widget.ts`).
+`WidgetContext` (planned; not yet defined in `packages/contracts/src/`).
 
 ## Style
 

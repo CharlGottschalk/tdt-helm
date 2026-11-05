@@ -13,7 +13,7 @@ behaves like the rest of Helm, in every theme.
 | [theme.md](theme.md) | 1 | The design tokens an extension may use, and the rules for using them |
 
 Machine-checkable schemas live in [`schemas/`](schemas/); worked examples in
-[`examples/`](examples/). The TypeScript mirror is `src/sdk/`.
+[`examples/`](examples/). The TypeScript mirror is `packages/contracts/src/`.
 
 ## Rules that apply to everything
 
