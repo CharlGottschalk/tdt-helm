@@ -33,7 +33,7 @@ Machine-checkable schemas live in [`schemas/`](schemas/); worked examples in
 
 | Origin | Location | Loaded as |
 | --- | --- | --- |
-| Built in | `src/views/dashboard/registry.tsx`, `src/views/tools/registry.tsx` | React components |
+| Built in | `packages/widgets/src/dashboard/registry.tsx`, `packages/widgets/src/tools/registry.tsx` | React components |
 | Stack | `.tdt/stacks/<stack-id>/helm/{widgets,tools}/<id>/` | Manifest + sandboxed bundle |
 | Generated (user-owned) | `work/helm/{widgets,tools}/<id>/` in the workspace | Manifest + sandboxed bundle |
 
