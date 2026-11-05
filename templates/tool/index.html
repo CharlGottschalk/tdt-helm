@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  /* Theme tokens are injected by Helm. Tools fill the tab; leave room for the chat dock. */
+  body { padding: var(--sp-5) var(--sp-6) 140px; }
+  h1 { margin: 0 0 var(--sp-4); font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--fs-2xl); color: var(--c-text-0); }
+  .panel { background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--radius); padding: var(--sp-4); }
+  .state { color: var(--c-text-2); }
+</style>
+</head>
+<body>
+  <span class="hud-label">Tool</span>
+  <h1 id="title">Example tool</h1>
+  <div class="panel"><div id="content" class="state">Loading…</div></div>
+  <script>
+    const content = document.getElementById('content')
+    helm.on('settings', async (s) => {
+      if (!s.project) {
+        content.textContent = 'Choose a project in settings.'
+        return
+      }
+      const result = await helm.call('tdt', 'tdt_project_read', { id: s.project })
+      content.textContent = result.ok ? result.data.project.path : result.error.message
+    })
+    helm.ready()
+  </script>
+</body>
+</html>
