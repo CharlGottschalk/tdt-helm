@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "description": "Create Helm Command Deck widget and tool plugins from a prompt with the @usetdt/helm-sdk CLI.",
   "author": "Charl Gottschalk",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "skills": [
     "skills/tdt-helm-widget/SKILL.md",
     "skills/tdt-helm-tool/SKILL.md"
