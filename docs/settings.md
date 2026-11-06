@@ -72,4 +72,4 @@ receives the validated values.
 
 Helm passes settings in the render context (`ctx.settings`) and pushes updates with
 a `settings` bridge event. Built-in React extensions read `useSettings()`; see
-`packages/contracts/src/settings.ts`. The form renderer is `apps/helm/src/components/settings/SettingsForm.tsx`.
+`packages/sdk/src/settings.ts`. The form renderer is `apps/helm/src/components/settings/SettingsForm.tsx`.

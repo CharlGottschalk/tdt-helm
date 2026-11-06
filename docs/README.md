@@ -11,9 +11,12 @@ behaves like the rest of Helm, in every theme.
 | [settings.md](settings.md) | 1 | Per-instance settings: text, select, choice, checkbox, number |
 | [connection.md](connection.md) | 1 | How widgets/tools read data: TDT MCP, other MCP servers, HTTP APIs |
 | [theme.md](theme.md) | 1 | The design tokens an extension may use, and the rules for using them |
+| [kit.md](kit.md) | 1 | The UI kit classes injected into every sandboxed frame |
+| [plugin.md](plugin.md) | 1 | The `"helm"` field of a plugin's `package.json` |
 
 Machine-checkable schemas live in [`schemas/`](schemas/); worked examples in
-[`examples/`](examples/). The TypeScript mirror is `packages/contracts/src/`.
+[`examples/`](examples/). The TypeScript side is the `@usetdt/helm-sdk` package (`packages/sdk/src/`); code inside a
+frame uses `@usetdt/helm-sdk/frame` for the typed bridge.
 
 ## Rules that apply to everything
 

@@ -33,7 +33,7 @@ instances when `multi` is true (each with its own settings).
 | `version` | Semver |
 | `description` | ≤ 240, shown in the widget library |
 | `category` | `Overview` \| `Work` \| `Knowledge` \| `Agents` \| `Utility` |
-| `icon` | A Helm icon name (`ICON_NAMES` in `packages/contracts/src/icons.ts`) |
+| `icon` | A Helm icon name (`ICON_NAMES` in `packages/sdk/src/icons.ts`) |
 | `size` | Grid units. `w` 1–6 columns, `h` ≥ 1 rows (row = 76px + 14px gap). Defaults ≤ 6×8 |
 | `multi` | Optional, default `false` |
 | `settings` | Optional. See [settings.md](settings.md) |
@@ -61,7 +61,7 @@ Use container queries (`@container`) for layout changes; the body is a size cont
 ## Bridge
 
 Sandboxed widgets talk to Helm with `postMessage`. Helm injects a tiny client
-exposing `helm`:
+exposing `helm` (typed as `HelmBridge` in `@usetdt/helm-sdk/frame`):
 
 ```js
 helm.ready()                                  // after first render
@@ -81,7 +81,7 @@ helm.resize({ h: 5 })                         // request, Helm may refuse
   network, frames, forms, popups and navigation. No `localStorage`; persist via settings.
 
 Built-in widgets are React components that receive the same capabilities through
-`WidgetContext` (planned; not yet defined in `packages/contracts/src/`).
+`WidgetContext` (planned; not yet defined in `packages/sdk/src/`).
 
 ## Style
 
