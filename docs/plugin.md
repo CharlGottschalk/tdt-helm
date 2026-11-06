@@ -63,4 +63,33 @@ enables anything:
    library.
 
 A plugin whose `helm.contract` this Helm doesn't support shows "needs a newer Helm".
-A scaffolding and validation CLI comes with task 015.
+
+## The `helm-sdk` CLI
+
+```bash
+npx @usetdt/helm-sdk create widget my-widget   # or: create tool my-tool
+cd my-widget
+npx helm-sdk build                             # src/<id>/ → dist/<id>/, then validate
+npx helm-sdk validate                          # check without building
+npx helm-sdk dev                               # build, then rebuild on every change in src/
+helm plugin link .                             # once; review and enable in Settings → Plugins
+```
+
+`create` scaffolds a package whose folder name is the plugin id: `package.json` (the
+`"helm"` field lists `dist/<id>`), and `src/<id>/` with `manifest.json`, `index.html`
+and `main.js`. Edit `src/`; `dist/` is generated, and ships with the package because
+Helm never runs install scripts.
+
+`build` copies each manifest and inlines the entry's local `<script src>` (bundled, so
+`import … from '@usetdt/helm-sdk/frame'` works) and `<link rel="stylesheet">` into one
+self-contained HTML file. A directory listed outside `dist/` is shipped as is.
+
+`validate` checks the `"helm"` field and every manifest against the contracts, plus
+what the frame would refuse or the contracts forbid in the entry: script or
+stylesheet files, non-`data:` images and CSS `url()`s, hard-coded colours or fonts in
+`<style>` and `style=""`, and `helm.call()`s (with literal arguments) to connections or
+operations the manifest doesn't declare. It exits non-zero on any problem.
+
+`dev` builds, validates and rebuilds on every change, and tells you whether Helm is
+running and the plugin is linked. Helm reads a linked plugin's files directly, so
+reload the widget or tool to see a rebuild; a changed manifest needs a new approval.
