@@ -1,7 +1,7 @@
 {
   "contract_version": 1,
   "id": "tdt-helm",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Create Helm Command Deck widget and tool plugins from a prompt with the @usetdt/helm-sdk CLI.",
   "author": "Charl Gottschalk",
   "license": "Apache-2.0",
@@ -23,8 +23,8 @@
     ],
     "icon": null,
     "screenshots": [],
-    "documentation_url": null,
-    "support_url": null,
+    "documentation_url": "https://github.com/CharlGottschalk/tdt-helm/blob/main/README.md",
+    "support_url": "https://github.com/CharlGottschalk/tdt-helm/issues",
     "supported_agents": [
       "claude"
     ],
