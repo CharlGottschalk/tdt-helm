@@ -1,7 +1,7 @@
 {
   "contract_version": 1,
   "id": "tdt-helm",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create Helm Command Deck widgets and tools from a prompt, following the Helm contracts.",
   "author": "Charl Gottschalk",
   "license": "UNLICENSED",
@@ -15,11 +15,7 @@
     "templates/widget/manifest.json",
     "templates/widget/index.html",
     "templates/tool/manifest.json",
-    "templates/tool/index.html",
-    "templates/helm/widgets/workspace-glance/manifest.json",
-    "templates/helm/widgets/workspace-glance/index.html",
-    "templates/helm/tools/project-list/manifest.json",
-    "templates/helm/tools/project-list/index.html"
+    "templates/tool/index.html"
   ],
   "docs": [
     "docs/README.md",

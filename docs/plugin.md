@@ -41,5 +41,26 @@ Machine check: `validatePluginPackage(pkg)` in `@usetdt/helm-sdk`, schema in
 - No install scripts: Helm installs plugins with `--ignore-scripts`, so a bundle must
   ship built.
 
-Installing, reviewing and enabling plugins per workspace comes with the plugin host
-(task 016); a scaffolding and validation CLI comes with task 015.
+## Installing
+
+```bash
+helm plugin add helm-plugin-example        # npm name or range; also a git URL
+helm plugin link ./my-plugin               # a local folder, linked for development
+helm plugin list
+helm plugin remove helm-plugin-example
+```
+
+Or use Settings → Plugins. Plugins install once per Helm into `~/.helm/plugins/` (its
+own `package.json` and lockfile), always with `--ignore-scripts`. Installing never
+enables anything:
+
+1. **Review.** Helm shows every widget and tool the plugin declares, with its
+   connections, operations, writes and capabilities.
+2. **Approve.** The approval covers exactly those declarations (a digest of the
+   version, the `"helm"` field and every manifest). An update or a changed manifest
+   needs a new approval; until then its widgets show an error instead of loading.
+3. **Enable** it per workspace. Only enabled, approved plugins reach a workspace's
+   library.
+
+A plugin whose `helm.contract` this Helm doesn't support shows "needs a newer Helm".
+A scaffolding and validation CLI comes with task 015.

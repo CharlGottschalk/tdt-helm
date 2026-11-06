@@ -37,7 +37,7 @@ frame uses `@usetdt/helm-sdk/frame` for the typed bridge.
 | Origin | Location | Loaded as |
 | --- | --- | --- |
 | Built in | `packages/widgets/src/dashboard/registry.tsx`, `packages/widgets/src/tools/registry.tsx` | React components |
-| Stack | `.tdt/stacks/<stack-id>/templates/helm/{widgets,tools}/<id>/` (TDT installs only files listed under `templates/` and the other declared folders) | Manifest + sandboxed bundle |
+| Plugin | An npm package installed with `helm plugin add` (or Settings → Plugins) into `~/.helm/plugins/`, approved for its declarations and enabled per workspace. See [plugin.md](plugin.md) | Manifest + sandboxed bundle |
 | Generated (user-owned) | `work/helm/{widgets,tools}/<id>/` in the workspace | Manifest + sandboxed bundle |
 
 A sandboxed bundle is `manifest.json` + `index.html` (self-contained HTML/CSS/JS); the
