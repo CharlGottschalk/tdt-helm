@@ -50,8 +50,8 @@
         "type": "cli",
         "required": true,
         "purpose": "Install the finished plugin with `helm plugin link`; the user reviews and approves it in Helm, and enables widgets and tools per workspace.",
-        "setup_url": "https://usetdt.com",
-        "version_constraint": null,
+        "setup_url": "https://www.npmjs.com/package/@usetdt/helm",
+        "version_constraint": ">=0.1.0",
         "authentication_required": false,
         "payment_required": false
       },

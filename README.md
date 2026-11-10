@@ -3,7 +3,7 @@
 > **Beta.** This stack, Helm and the Helm SDK are in beta (0.x). Expect bugs, and changes
 > between versions. Report problems in [GitHub issues](https://github.com/CharlGottschalk/tdt-helm/issues).
 
-A [ThisDamnThing](https://usetdt.com) stack that makes [Helm](https://usetdt.com)
+A [ThisDamnThing](https://usetdt.com) stack that makes [Helm](https://helm.usetdt.com)
 Command Deck plugins from a prompt. It installs three skills:
 
 - `tdt-helm-widget` makes a widget plugin: a card on the Helm dashboard.
@@ -21,29 +21,27 @@ enable a widget or tool for each workspace.
 
 The [usage guide](docs/usage.md) gives the full procedure.
 
-**Availability:** `@usetdt/helm-sdk` is not published to npm yet, and this stack is
-not in the TDT marketplace yet. Until the SDK is published, the skills cannot make
-new plugins. See [Current availability](docs/usage.md#current-availability).
-
 ## Requirements
 
 - ThisDamnThing with an initialized workspace.
 - Claude Code.
 - Node.js 20 or later, with npm (`npx @usetdt/helm-sdk`, version 0.2.0 or later).
-- Helm, to install and use the plugins.
+- [Helm](https://www.npmjs.com/package/@usetdt/helm), to install and use the plugins:
+  `npm install -g @usetdt/helm`.
 
 ## Install
 
-Install the stack from a local checkout:
+From the [stacks marketplace](https://stacks.usetdt.com/tdt-helm), ask your agent:
+`/tdt-install-stack tdt-helm`.
+
+Or install it from a local checkout:
 
 ```sh
 tdt stack validate ./tdt-helm
 tdt --workspace ./workspace stack install ./tdt-helm
 ```
 
-Replace `./workspace` with the path of your workspace. After the stack is in the
-marketplace, you can also ask your agent to install `tdt-helm` with
-`/tdt-install-stack`.
+Replace `./workspace` with the path of your workspace.
 
 ## Contents
 

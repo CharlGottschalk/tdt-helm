@@ -15,26 +15,24 @@ The agent makes each plugin as an npm package in your workspace, in
 plugin into Helm, and you review and approve it there. You enable a widget or a tool
 for each workspace. A theme needs no enable step.
 
-## Current availability
-
-The skills use the Helm SDK, the `@usetdt/helm-sdk` npm package, version 0.2.0 or
-later. Theme plugins need 0.2.0. This package is not
-published to npm yet. Until it is published, `npx @usetdt/helm-sdk create` fails, and
-the skills cannot make a new plugin. The stack is also not in the TDT marketplace yet.
-Install it from a local checkout, as [Install the stack](#install-the-stack) describes.
-
 ## Requirements
 
 - TDT with an initialized workspace.
 - Claude Code. The stack supports Claude Code only.
 - Node.js 20 or later, with npm.
-- Helm, to install and use the plugins. See the Helm user guides for Helm's own
-  requirements.
+- Helm, to install and use the plugins: `npm install -g @usetdt/helm`. See the
+  [Helm user guides](https://helm.usetdt.com/docs) for Helm's own requirements.
+- The skills use the Helm SDK, [`@usetdt/helm-sdk`](https://www.npmjs.com/package/@usetdt/helm-sdk)
+  0.2.0 or later, through `npx`. You do not install it yourself.
 
 ## Install the stack
 
-Run these commands from the folder that contains the `tdt-helm` checkout and your
-workspace. Replace `./workspace` with the path of your workspace.
+From the [stacks marketplace](https://stacks.usetdt.com/tdt-helm), ask your agent in
+your workspace: `/tdt-install-stack tdt-helm`.
+
+To install from a local checkout instead, run these commands from the folder that
+contains the `tdt-helm` checkout and your workspace. Replace `./workspace` with the
+path of your workspace.
 
 ```sh
 tdt stack validate ./tdt-helm
@@ -122,11 +120,11 @@ npm run dev        # build again after each change in src/
 The agent installs the plugin into Helm only if you ask. Otherwise it gives you the
 command.
 
-1. Link the plugin into Helm. Run this command in the root of the Helm repository.
-   Replace the path with the absolute path of the plugin folder.
+1. Link the plugin into Helm. Replace the path with the absolute path of the plugin
+   folder.
 
    ```sh
-   npx helm plugin link /abs/path/to/workspace/work/helm/plugins/<id>
+   helm plugin link /abs/path/to/workspace/work/helm/plugins/<id>
    ```
 
 2. In Helm, open **System settings** → **Plugins**.
@@ -163,8 +161,9 @@ the plugin again before you use it.
 
 ### The SDK is not found
 
-If `npx @usetdt/helm-sdk create` reports `E404`, the SDK is not available on npm. See
-[Current availability](#current-availability).
+If `npx @usetdt/helm-sdk create` reports `E404` or a network error, check your
+connection to the npm registry and any npm proxy or registry settings
+(`npm config get registry`).
 
 ### The build reports problems
 
@@ -179,8 +178,8 @@ The plugin uses a contract version that your Helm does not support. Update Helm.
 
 ### `helm` is not found
 
-Helm is not on npm yet, so the `helm` command is usually not on your `PATH`. Run the
-command from the root of the Helm repository as `npx helm …`.
+Install Helm with `npm install -g @usetdt/helm`. If you run Helm from its source
+code, run the command from the root of the Helm repository as `npx helm …`.
 
 ## Reference
 
