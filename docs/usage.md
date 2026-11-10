@@ -1,6 +1,6 @@
 # Using the Helm stack
 
-The Helm stack adds two skills to your [ThisDamnThing](https://usetdt.com) (TDT)
+The Helm stack adds three skills to your [ThisDamnThing](https://usetdt.com) (TDT)
 workspace. With these skills, the agent makes plugins for the Helm Command Deck from
 your description:
 
@@ -8,14 +8,17 @@ your description:
 | --- | --- |
 | `tdt-helm-widget` | A **widget**: a card on the Helm dashboard |
 | `tdt-helm-tool` | A **tool**: an application in its own Helm tab, for example a kanban board |
+| `tdt-helm-theme` | A **theme**: a set of colours, fonts and shapes for all of Helm |
 
 The agent makes each plugin as an npm package in your workspace, in
 `work/helm/plugins/<id>/`. It builds and validates the plugin. You then install the
-plugin into Helm, and you review, approve and enable it there.
+plugin into Helm, and you review and approve it there. You enable a widget or a tool
+for each workspace. A theme needs no enable step.
 
 ## Current availability
 
-The skills use the Helm SDK, the `@usetdt/helm-sdk` npm package. This package is not
+The skills use the Helm SDK, the `@usetdt/helm-sdk` npm package, version 0.2.0 or
+later. Theme plugins need 0.2.0. This package is not
 published to npm yet. Until it is published, `npx @usetdt/helm-sdk create` fails, and
 the skills cannot make a new plugin. The stack is also not in the TDT marketplace yet.
 Install it from a local checkout, as [Install the stack](#install-the-stack) describes.
@@ -40,13 +43,13 @@ tdt --workspace ./workspace stack list
 ```
 
 1. `stack validate` checks the stack. If it reports a problem, do not install the stack.
-2. `stack install` installs the two skills into the workspace.
+2. `stack install` installs the three skills into the workspace.
 3. `stack list` shows `tdt-helm`, if the installation is complete.
 
 After the installation, start Claude Code again in your workspace. The skills are then
-available as `/tdt-helm-widget` and `/tdt-helm-tool`.
+available as `/tdt-helm-widget`, `/tdt-helm-tool` and `/tdt-helm-theme`.
 
-The stack installs only these two skills. It adds no hooks and no brain knowledge.
+The stack installs only these three skills. It adds no hooks and no brain knowledge.
 
 ## Make a widget
 
@@ -81,13 +84,32 @@ A tool with `orchestrate` starts builds only through the TDT software-production
 skill. The tool never marks tasks as done. The build skill and you control the task
 status.
 
+## Make a theme
+
+1. In Claude Code, in your workspace, type `/tdt-helm-theme` and describe the look.
+2. Answer the questions of the agent. The agent asks about these items:
+   - The look, in a few words.
+   - The accent colours and the background and panel colours.
+   - Light or dark, the corners and the fonts.
+   - Whether the rails (the sidebars, the tab bar and the chat dock) look different
+     from the content, as in Monolith.
+3. The agent makes the plugin in `work/helm/plugins/<id>/`. A theme has no code: the
+   agent writes only token values, in `themes/<id>/`. It validates the theme with
+   `npm run validate`.
+4. The agent reports each contrast warning, with the two colours and their ratio, and
+   offers a fix. Text below WCAG AA (4.5:1) is allowed, but Helm shows
+   **Below AA contrast** on the theme. You decide whether to keep it.
+
+A theme can change only tokens. It cannot add background images, animations or font
+files. See `theme.md` in the SDK.
+
 ## Change a plugin
 
 Give the skill the id of the existing plugin, and describe the change. The agent edits
 the plugin in its folder, and builds and validates it again.
 
-You can also edit the plugin yourself. Edit only the files in `src/<id>/`. The build
-makes `dist/` again. In the plugin folder, run:
+You can also edit the plugin yourself. Edit only the files in `src/<id>/`, or in
+`themes/<id>/` for a theme. The build makes `dist/` again. A theme has no build. In the plugin folder, run:
 
 ```sh
 npm run build      # build and validate the plugin
@@ -111,26 +133,30 @@ command.
 3. Find the plugin under **Installed**. Read its declarations: the connections, the
    calls, the writes and the capabilities.
 4. If you agree, click **Approve these declarations**.
-5. Turn on **Enabled in {workspace}**.
+5. For a widget or a tool, turn on **Enabled in {workspace}**. A theme does not have
+   this step.
 
 The result:
 
 - A widget appears in the **Widget library**, in its category.
 - A tool appears in the **Tools** group of the left rail, and in the tool library.
+- A theme appears in **System settings** → **Appearance** → **Theme**, in every
+  workspace. Click it to use it.
 
 Only you can approve and enable a plugin. The agent does not do these steps.
 
 ### After a change
 
 Helm reads a linked plugin directly from its folder. After a build, reload the widget
-or tool in Helm. If the manifest changed, Helm shows **Needs review** again. Approve
+or tool in Helm. If the manifest or a theme token file changed, Helm shows
+**Needs review** again. Approve
 the plugin again before you use it.
 
 ## What the skills do not do
 
 - They do not change Helm, other plugins, or files outside the plugin folder.
 - They do not ask for credentials, and they do not keep credentials.
-- They do not approve or enable plugins in Helm.
+- They do not approve or enable plugins in Helm, and they do not select a theme.
 - They do not save the plugin as brain knowledge. The plugin is your work in `work/`.
 
 ## Troubleshooting

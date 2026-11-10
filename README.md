@@ -1,17 +1,20 @@
 # Helm stack
 
 A [ThisDamnThing](https://usetdt.com) stack that makes [Helm](https://usetdt.com)
-Command Deck plugins from a prompt. It installs two skills:
+Command Deck plugins from a prompt. It installs three skills:
 
 - `tdt-helm-widget` makes a widget plugin: a card on the Helm dashboard.
 - `tdt-helm-tool` makes a tool plugin: an application in its own Helm tab, for
   example a kanban board.
+- `tdt-helm-theme` makes a theme plugin: colours, fonts and shapes for all of Helm.
+  A theme is token values only.
 
 Each skill makes an npm plugin in `work/helm/plugins/<id>/` with
 `npx @usetdt/helm-sdk create`. The skill reads the contracts in the SDK, writes the
-plugin, and builds and validates it with `npm run build`. The agent installs the
-plugin into Helm (`helm plugin link`) only if you ask. You review, approve and enable
-the plugin in Helm, under **System settings** → **Plugins**.
+plugin, and builds and validates it with `npm run build` (a theme: `npm run validate`).
+The agent installs the plugin into Helm (`helm plugin link`) only if you ask. You
+review and approve the plugin in Helm, under **System settings** → **Plugins**, and
+enable a widget or tool for each workspace.
 
 The [usage guide](docs/usage.md) gives the full procedure.
 
@@ -23,7 +26,7 @@ new plugins. See [Current availability](docs/usage.md#current-availability).
 
 - ThisDamnThing with an initialized workspace.
 - Claude Code.
-- Node.js 20 or later, with npm (`npx @usetdt/helm-sdk`).
+- Node.js 20 or later, with npm (`npx @usetdt/helm-sdk`, version 0.2.0 or later).
 - Helm, to install and use the plugins.
 
 ## Install
@@ -45,6 +48,7 @@ marketplace, you can also ask your agent to install `tdt-helm` with
 stack.json                          manifest and marketplace metadata
 skills/tdt-helm-widget/SKILL.md     widget skill
 skills/tdt-helm-tool/SKILL.md       tool skill
+skills/tdt-helm-theme/SKILL.md      theme skill
 docs/usage.md                       usage guide
 ```
 

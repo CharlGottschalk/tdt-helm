@@ -1,13 +1,14 @@
 {
   "contract_version": 1,
   "id": "tdt-helm",
-  "version": "0.2.1",
-  "description": "Create Helm Command Deck widget and tool plugins from a prompt with the @usetdt/helm-sdk CLI.",
+  "version": "0.3.0",
+  "description": "Create Helm Command Deck widget, tool and theme plugins from a prompt with the @usetdt/helm-sdk CLI.",
   "author": "Charl Gottschalk",
   "license": "Apache-2.0",
   "skills": [
     "skills/tdt-helm-widget/SKILL.md",
-    "skills/tdt-helm-tool/SKILL.md"
+    "skills/tdt-helm-tool/SKILL.md",
+    "skills/tdt-helm-theme/SKILL.md"
   ],
   "hooks": [],
   "knowledge": [],
@@ -21,6 +22,7 @@
       "helm",
       "widgets",
       "dashboard",
+      "themes",
       "plugins"
     ],
     "icon": null,
@@ -38,7 +40,7 @@
         "required": true,
         "purpose": "Scaffold, build and validate plugins (`npx @usetdt/helm-sdk`); ships the contracts the skills read.",
         "setup_url": "https://www.npmjs.com/package/@usetdt/helm-sdk",
-        "version_constraint": ">=0.1.0",
+        "version_constraint": ">=0.2.0",
         "authentication_required": false,
         "payment_required": false
       },
@@ -47,7 +49,7 @@
         "name": "Helm",
         "type": "cli",
         "required": true,
-        "purpose": "Install the finished plugin with `helm plugin link`; the user reviews, approves and enables it in Helm.",
+        "purpose": "Install the finished plugin with `helm plugin link`; the user reviews and approves it in Helm, and enables widgets and tools per workspace.",
         "setup_url": "https://usetdt.com",
         "version_constraint": null,
         "authentication_required": false,
@@ -68,8 +70,8 @@
     "capabilities": [
       {
         "type": "file_write",
-        "scope": "The new plugin folder under work/helm/plugins/<id>/ (sources, dist/ and node_modules/).",
-        "purpose": "Scaffold and fill in the widget or tool the user asked for.",
+        "scope": "The new plugin folder under work/helm/plugins/<id>/ (sources, dist/ and node_modules/; a theme has themes/<id>/ token files and no dist/).",
+        "purpose": "Scaffold and fill in the widget, tool or theme the user asked for.",
         "data_leaves_machine": "Context selected by the agent may be sent to the configured model provider."
       },
       {
@@ -80,7 +82,7 @@
       },
       {
         "type": "process",
-        "scope": "npx/npm (create, install, build) in the plugin folder; `helm plugin link` only when the user asks to install.",
+        "scope": "npx/npm (create, install, build, validate) in the plugin folder; `helm plugin link` only when the user asks to install.",
         "purpose": "Build and validate the plugin, and install it into Helm.",
         "data_leaves_machine": "npm downloads @usetdt/helm-sdk and its dependencies from the npm registry; no workspace data is sent."
       },
