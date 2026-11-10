@@ -1,5 +1,8 @@
 # Helm stack
 
+> **Beta.** This stack, Helm and the Helm SDK are in beta (0.x). Expect bugs, and changes
+> between versions. Report problems in [GitHub issues](https://github.com/CharlGottschalk/tdt-helm/issues).
+
 A [ThisDamnThing](https://usetdt.com) stack that makes [Helm](https://usetdt.com)
 Command Deck plugins from a prompt. It installs three skills:
 
