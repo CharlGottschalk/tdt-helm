@@ -1,32 +1,43 @@
 # Helm stack
 
-A [ThisDamnThing](https://usetdt.com) stack for making [Helm](https://usetdt.com) Command Deck
-plugins from a prompt. It installs two skills:
+A [ThisDamnThing](https://usetdt.com) stack that makes [Helm](https://usetdt.com)
+Command Deck plugins from a prompt. It installs two skills:
 
-- `tdt-helm-widget`: a dashboard widget (card) plugin;
-- `tdt-helm-tool`: a tool plugin (a tabbed app such as a kanban board).
+- `tdt-helm-widget` makes a widget plugin: a card on the Helm dashboard.
+- `tdt-helm-tool` makes a tool plugin: an application in its own Helm tab, for
+  example a kanban board.
 
-Both skills scaffold an npm plugin in `work/helm/plugins/<id>/` with
-`npx @usetdt/helm-sdk create`, read the contracts bundled with the SDK, fill in
-the plugin, and build and validate it with `npm run build`. Installing the plugin
-into Helm (`helm plugin link`) happens only when you ask; you review, approve and
-enable it in Helm under Settings → Plugins.
+Each skill makes an npm plugin in `work/helm/plugins/<id>/` with
+`npx @usetdt/helm-sdk create`. The skill reads the contracts in the SDK, writes the
+plugin, and builds and validates it with `npm run build`. The agent installs the
+plugin into Helm (`helm plugin link`) only if you ask. You review, approve and enable
+the plugin in Helm, under **System settings** → **Plugins**.
+
+The [usage guide](docs/usage.md) gives the full procedure.
+
+**Availability:** `@usetdt/helm-sdk` is not published to npm yet, and this stack is
+not in the TDT marketplace yet. Until the SDK is published, the skills cannot make
+new plugins. See [Current availability](docs/usage.md#current-availability).
 
 ## Requirements
 
 - ThisDamnThing with an initialized workspace.
-- Node.js 20+ with npm (`npx @usetdt/helm-sdk`).
+- Claude Code.
+- Node.js 20 or later, with npm (`npx @usetdt/helm-sdk`).
 - Helm, to install and use the plugins.
 
 ## Install
 
-Ask your agent to install `tdt-helm` with `/tdt-install-stack`, or from a local
-checkout:
+Install the stack from a local checkout:
 
 ```sh
 tdt stack validate ./tdt-helm
 tdt --workspace ./workspace stack install ./tdt-helm
 ```
+
+Replace `./workspace` with the path of your workspace. After the stack is in the
+marketplace, you can also ask your agent to install `tdt-helm` with
+`/tdt-install-stack`.
 
 ## Contents
 
@@ -34,9 +45,10 @@ tdt --workspace ./workspace stack install ./tdt-helm
 stack.json                          manifest and marketplace metadata
 skills/tdt-helm-widget/SKILL.md     widget skill
 skills/tdt-helm-tool/SKILL.md       tool skill
+docs/usage.md                       usage guide
 ```
 
-The Helm contracts, templates and CLI live in `@usetdt/helm-sdk`, not here.
+The Helm contracts, templates and CLI are in `@usetdt/helm-sdk`, not in this stack.
 
 ## License
 

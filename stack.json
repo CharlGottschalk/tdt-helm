@@ -12,7 +12,9 @@
   "hooks": [],
   "knowledge": [],
   "templates": [],
-  "docs": [],
+  "docs": [
+    "docs/usage.md"
+  ],
   "marketplace": {
     "extension_type": "capability",
     "tags": [
